@@ -222,7 +222,7 @@ class document_page : AppCompatActivity() {
                 loadingTextView.visibility = View.GONE
                 Toast.makeText(
                   this@document_page,
-                  "已选择按时间排序",
+                  getString(R.string.sort_by_time),
                   Toast.LENGTH_SHORT
                 ).show()
               }
@@ -245,7 +245,7 @@ class document_page : AppCompatActivity() {
                 loadingTextView.visibility = View.GONE
                 Toast.makeText(
                   this@document_page,
-                  "已选择按大小排序",
+                  getString(R.string.sort_by_size),
                   Toast.LENGTH_SHORT
                 ).show()
               }

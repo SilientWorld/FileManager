@@ -63,6 +63,9 @@ import com.example.myapplication.fileSystem.WrappedFile.Type
 import com.example.myapplication.main_page
 import com.example.myapplication.utils.AlertHelper
 import com.example.myapplication.utils.ClipHelper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.apache.commons.io.IOUtils
 import java.io.File
 import java.io.FileNotFoundException
@@ -74,17 +77,26 @@ class FileColumn(val context: Context) {
   fun Draw(startFolder: String) {
     var path by remember { mutableStateOf(startFolder) }
     var shouldUpdate by remember { mutableStateOf(false) }
+
+    // 检查当前在的目录，有问题就不渲染
     val cwd = File(path)
     if (!cwd.isDirectory) {
       return
     }
-    var isOkay by remember { mutableStateOf(false) }
 
-    LaunchedEffect(path, shouldUpdate) {
+    var isOkay by remember { mutableStateOf(false) }
+    var sortByTime by remember { mutableStateOf(true) }
+
+    LaunchedEffect(path, shouldUpdate, sortByTime) {
       isOkay = false
       fileList.clear()
-      cwd.listFiles()?.forEach { f ->
-        fileList.add(WrappedFile(f))
+      val wfList = cwd.listFiles()?.map { WrappedFile(it) }
+      if (wfList!=null) {
+        if (sortByTime) {
+          fileList.addAll(wfList.sortedBy { it.lastModifiedTime })
+        } else {
+          fileList.addAll(wfList.sortedBy { it.size })
+        }
       }
       isOkay = true
     }
@@ -120,10 +132,41 @@ class FileColumn(val context: Context) {
         Text(
           text = path,
           fontSize = 24.sp,
-          modifier = Modifier.padding(start = 16.dp),
+          modifier = Modifier.padding(start = 10.dp)
+            .fillMaxWidth(0.75f),
           maxLines = 1,
           overflow = TextOverflow.Ellipsis
         )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        IconButton(
+          onClick = {
+            sortByTime = !sortByTime
+            CoroutineScope(Dispatchers.Main).launch {
+              Toast.makeText(
+                context, context.getString(
+                  if (sortByTime) {
+                    R.string.sort_by_time
+                  } else {
+                    R.string.sort_by_size
+                  }
+                ), Toast.LENGTH_SHORT
+              ).show()
+            }
+          },
+        ) {
+          Image(
+            imageVector = ImageVector.vectorResource(
+              if (sortByTime) {
+                R.drawable.baseline_access_time_24
+              } else {
+                R.drawable.baseline_storage_24
+              }
+            ), "sortMethod"
+          )
+        }
+
 
       }
       if (!isOkay) {

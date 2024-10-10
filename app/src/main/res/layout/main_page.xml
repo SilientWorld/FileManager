@@ -36,7 +36,7 @@
         android:scrollbars="none"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchDocument"
+        app:layout_constraintTop_toBottomOf="@+id/MainPageSearchButton"
         >
 
       <LinearLayout
@@ -329,19 +329,21 @@
     </ScrollView>
 
 
-    <SearchView
-        android:id="@+id/searchDocument"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/search_border"
-        android:iconifiedByDefault="false"
-        android:queryHint="搜索文件"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MainPageTitleRow"
-        />
+  <Button
+      android:id="@+id/MainPageSearchButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:backgroundTint="@color/white"
+      android:drawableLeft="@drawable/ic_search"
+      android:gravity="center"
+      android:layout_marginHorizontal="60dp"
+      android:text="@string/search_file"
+      android:textColor="@color/black"
+      android:textSize="20sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/MainPageTitleRow"
+      />
+
   </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
