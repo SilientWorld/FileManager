@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission
-      android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-      tools:ignore="ScopedStorage" />
-
-  <uses-permission android:name="android.permission.READ_MEDIA_AUDIO"/>
-  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-  <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
 
   <application
       android:allowBackup="true"
@@ -21,6 +12,11 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.MyApplication"
       tools:targetApi="31">
+    <activity
+        android:name=".compose.SearchActivity"
+        android:exported="false"
+        android:label="@string/title_activity_search"
+        android:theme="@style/Theme.MyApplication" />
     <activity
         android:name=".compose.RequirePermissionActivity"
         android:exported="true"
@@ -34,35 +30,26 @@
     <activity
         android:name=".compose.ViewFileActivity"
         android:exported="false" />
+
+    <activity
+        android:name=".main_page"
+        android:exported="false" />
+
     <activity
         android:name=".store_page"
         android:exported="false" />
-    <activity
-        android:name=".document_page_search"
-        android:exported="false" />
+
     <activity
         android:name=".document_page"
-        android:exported="false" />
-    <activity
-        android:name=".music_page_search"
-        android:exported="false" />
-    <activity
-        android:name=".music_page"
-        android:exported="false" />
-    <activity
-        android:name=".video_page_search"
-        android:exported="false" />
-    <activity
-        android:name=".picture_page_search"
-        android:exported="false" />
-    <activity
-        android:name=".main_page"
         android:exported="false" />
     <activity
         android:name=".picture_page"
         android:exported="false" />
     <activity
         android:name=".video_page"
+        android:exported="false" />
+    <activity
+        android:name=".music_page"
         android:exported="false" />
 
     <provider
@@ -75,4 +62,15 @@
           android:resource="@xml/provider_paths" />
     </provider>
   </application>
+
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission
+      android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+      tools:ignore="ScopedStorage" />
+  <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+  <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+  <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 </manifest>

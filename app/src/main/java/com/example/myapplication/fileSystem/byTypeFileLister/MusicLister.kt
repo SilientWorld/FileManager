@@ -10,7 +10,8 @@ import java.io.File
 class MusicLister : Lister() {
   companion object {
     val instance by lazy { MusicLister() }
-    val directories = listOf("Recordings", "Download", "Audiobooks", "Music", "Podcasts", "Ringtones")
+    val directories =
+      listOf("Recordings", "Download", "Audiobooks", "Music", "Podcasts", "Ringtones")
     val regex = "\\.(mp3|ogg|aac|wav)".toRegex()
   }
 

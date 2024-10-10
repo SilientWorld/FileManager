@@ -6,7 +6,7 @@ import java.io.FileOutputStream
 import java.nio.channels.FileChannel
 
 class PasteHelper {
-  companion object{
+  companion object {
     fun copyDirectory(sourceDir: File, destDir: File) {
       // creates the destination directory if it does not exist
       if (!destDir.exists()) {
@@ -40,7 +40,7 @@ class PasteHelper {
       }
     }
 
-    private fun copySingleFile(sourceFile: File, destFile: File){
+    private fun copySingleFile(sourceFile: File, destFile: File) {
       if (!destFile.exists()) {
         destFile.createNewFile()
       }

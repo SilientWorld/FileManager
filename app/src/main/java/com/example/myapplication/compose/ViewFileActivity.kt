@@ -20,7 +20,7 @@ class ViewFileActivity : ComponentActivity() {
     var path =
       intent.extras?.getString("folder") ?: Environment.getExternalStorageDirectory().path
     val file = File(path)
-    if (!file.isDirectory){
+    if (!file.isDirectory) {
       path = Environment.getExternalStorageDirectory().path
     }
     enableEdgeToEdge()
@@ -30,7 +30,7 @@ class ViewFileActivity : ComponentActivity() {
         modifier = Modifier
           .fillMaxSize()
           .background(Color(getColor(R.color.WhiteSmoke)))
-      ){
+      ) {
         FileColumn(this).Draw(path)
       }
     }

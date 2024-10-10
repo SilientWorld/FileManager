@@ -6,7 +6,7 @@ import android.os.Environment
 import android.os.storage.StorageManager
 import java.io.IOException
 
-class SystemStorageInfo(private val context: Context) {
+class SystemStorageInfo(context: Context) {
   private val storageManager = context.getSystemService(Context.STORAGE_SERVICE) as StorageManager
   private val storageStatsManager =
     context.getSystemService(Context.STORAGE_STATS_SERVICE) as StorageStatsManager
@@ -34,6 +34,7 @@ class SystemStorageInfo(private val context: Context) {
     }
   }
 
-  fun getUsedPercentage(): Int = 100 - Math.round(freeStorage.toDouble() * 100 / totalStorage.toDouble()).toInt()
+  fun getUsedPercentage(): Int =
+    100 - Math.round(freeStorage.toDouble() * 100 / totalStorage.toDouble()).toInt()
 }
 

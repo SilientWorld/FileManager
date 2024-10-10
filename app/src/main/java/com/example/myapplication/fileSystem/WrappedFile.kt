@@ -121,9 +121,9 @@ class WrappedFile(private val f: File, skipCalculateDirectorySize: Boolean = fal
     )
     lastModifiedTime = attr.lastModifiedTime().toInstant()
 
-    mime = if (f.isDirectory){
+    mime = if (f.isDirectory) {
       "dir"
-    }else {
+    } else {
       guessMime(f.extension)
     }
   }
@@ -131,11 +131,11 @@ class WrappedFile(private val f: File, skipCalculateDirectorySize: Boolean = fal
   fun getSizeString(): String {
     if (size == 0L) {
       if (type == Type.DIRECTORY) {
-        if (!isSizeCalculated){
+        if (!isSizeCalculated) {
           // Calculate Size
           size = getFolderSize(f)
           isSizeCalculated = true
-        }else{
+        } else {
           return "0B"
         }
       } else {

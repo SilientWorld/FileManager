@@ -1,11 +1,11 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
 import com.example.myapplication.adapters.DocumentAdapter
 import com.example.myapplication.adapters.DocumentModel
+import com.example.myapplication.compose.SearchActivity
 import com.example.myapplication.fileSystem.CutHelper
 import com.example.myapplication.fileSystem.byTypeFileLister.DocumentLister.Companion.instance
 import com.example.myapplication.fileSystem.byTypeFileLister.DocumentLister.Companion.regex
@@ -71,9 +72,12 @@ class document_page : AppCompatActivity() {
     searchImageView.setOnClickListener { v: View? ->
       val intent =
         Intent(
-          this@document_page,
-          document_page_search::class.java
+          this,
+          SearchActivity::class.java
         )
+      val bundle = Bundle()
+      bundle.putString("type", "document")
+      intent.putExtras(bundle)
       startActivity(intent) // 跳转到搜索页面
     }
 
@@ -93,23 +97,27 @@ class document_page : AppCompatActivity() {
             file
           )
           val intent = Intent(Intent.ACTION_VIEW)
-          intent.setDataAndType(uri, when(file.extension){
-            "xls" -> "application/vnd.ms-excel"
-            "xlsx" -> "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            "doc" -> "application/msword"
-            "docx" -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            "ppt" -> "application/vnd.ms-powerpoint"
-            "pptx" -> "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-            "txt" -> "text/plain"
-            "htm","html" -> "text/html"
-            "pdf" -> "application/pdf"
+          intent.setDataAndType(
+            uri, when (file.extension) {
+              "xls" -> "application/vnd.ms-excel"
+              "xlsx" -> "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+              "doc" -> "application/msword"
+              "docx" -> "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              "ppt" -> "application/vnd.ms-powerpoint"
+              "pptx" -> "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+              "txt" -> "text/plain"
+              "htm", "html" -> "text/html"
+              "pdf" -> "application/pdf"
 
-            else -> "application/*"
-          })
+              else -> "application/*"
+            }
+          )
           intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-          try { startActivity(intent) }
-          catch (e: ActivityNotFoundException){
-            Toast.makeText(baseContext,"没有安装可以打开此类型文件的应用",Toast.LENGTH_SHORT).show()
+          try {
+            startActivity(intent)
+          } catch (e: ActivityNotFoundException) {
+            Toast.makeText(baseContext, "没有安装可以打开此类型文件的应用", Toast.LENGTH_SHORT)
+              .show()
           }
         }
       }
@@ -125,7 +133,7 @@ class document_page : AppCompatActivity() {
     CoroutineScope(Dispatchers.Default).launch {
       val loadingTextView = findViewById<TextView>(R.id.LoadingBlankText)
       val defaultText = loadingTextView.text
-      launch { loadingText(loadingTextView,defaultText) }
+      launch { loadingText(loadingTextView, defaultText) }
       documentList = instance.dateOrderedList()
       val models = ArrayList<DocumentModel>()
       for (path in documentList) {
@@ -133,8 +141,7 @@ class document_page : AppCompatActivity() {
       }
       runOnUiThread {
         val adapter = DocumentAdapter(this@document_page, models)
-        val grid = findViewById<GridView>(R.id.DocumentGrid)
-        grid.setAdapter(adapter)
+        documentGrid.setAdapter(adapter)
         findViewById<TextView>(R.id.LoadingBlankText).visibility = View.GONE
       }
     }
@@ -157,7 +164,7 @@ class document_page : AppCompatActivity() {
           }
           val name = uri.path?.split('/')?.last() ?: "somePastedItem"
           val ext = name.split('.').last()
-          if (!"$ext.".matches(regex)){
+          if (!"$ext.".matches(regex)) {
             Toast.makeText(this, getString(R.string.error_nothing_to_paste), Toast.LENGTH_SHORT)
               .show()
             return@showItemAlert
@@ -201,12 +208,17 @@ class document_page : AppCompatActivity() {
         when (which) {
           0 -> {
             listOrderType = 0
-            runOnUiThread{
+            runOnUiThread {
               loadingTextView.visibility = View.VISIBLE
             }
-            CoroutineScope(Dispatchers.IO).launch { loadingText(loadingTextView,loadingTextView.text) }
+            CoroutineScope(Dispatchers.IO).launch {
+              loadingText(
+                loadingTextView,
+                loadingTextView.text
+              )
+            }
             update {
-              runOnUiThread{
+              runOnUiThread {
                 loadingTextView.visibility = View.GONE
                 Toast.makeText(
                   this@document_page,
@@ -219,12 +231,17 @@ class document_page : AppCompatActivity() {
 
           1 -> {
             listOrderType = 1
-            runOnUiThread{
+            runOnUiThread {
               loadingTextView.visibility = View.VISIBLE
             }
-            CoroutineScope(Dispatchers.IO).launch { loadingText(loadingTextView,loadingTextView.text) }
+            CoroutineScope(Dispatchers.IO).launch {
+              loadingText(
+                loadingTextView,
+                loadingTextView.text
+              )
+            }
             update {
-              runOnUiThread{
+              runOnUiThread {
                 loadingTextView.visibility = View.GONE
                 Toast.makeText(
                   this@document_page,
@@ -242,7 +259,7 @@ class document_page : AppCompatActivity() {
       .show()
   }
 
-  private fun update(runSomethingMore: (()->Unit)? = null) {
+  private fun update(runSomethingMore: (() -> Unit)? = null) {
     instance.initialize {
       documentList = when (listOrderType) {
         0 -> instance.dateOrderedList()
@@ -262,6 +279,7 @@ class document_page : AppCompatActivity() {
     }
   }
 
+  @SuppressLint("SetTextI18n")
   private fun loadingText(
     loadingTextView: TextView,
     defaultText: CharSequence,

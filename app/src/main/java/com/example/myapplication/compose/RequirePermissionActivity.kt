@@ -44,7 +44,8 @@ class RequirePermissionActivity : ComponentActivity() {
     window.statusBarColor = getColor(R.color.WhiteSmoke)
     setContent {
       Column(
-        modifier = Modifier.statusBarsPadding()
+        modifier = Modifier
+          .statusBarsPadding()
           .fillMaxHeight(0.9f)
           .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -72,7 +73,11 @@ class RequirePermissionActivity : ComponentActivity() {
                 startActivity(intent)
               }
               if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
-                val perm33 =  arrayOf(permission.READ_MEDIA_AUDIO,permission.READ_MEDIA_VIDEO,permission.READ_MEDIA_IMAGES)
+                val perm33 = arrayOf(
+                  permission.READ_MEDIA_AUDIO,
+                  permission.READ_MEDIA_VIDEO,
+                  permission.READ_MEDIA_IMAGES
+                )
                 ActivityCompat.requestPermissions(
                   activity, perm33, 101
                 )
@@ -96,7 +101,6 @@ class RequirePermissionActivity : ComponentActivity() {
         }
       }
     }
-
   }
 
   override fun onResume() {
@@ -119,7 +123,11 @@ fun checkPermissions(context: Context): Boolean {
       return false
     }
     if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
-      val perm33 =  arrayOf(permission.READ_MEDIA_AUDIO,permission.READ_MEDIA_VIDEO,permission.READ_MEDIA_IMAGES)
+      val perm33 = arrayOf(
+        permission.READ_MEDIA_AUDIO,
+        permission.READ_MEDIA_VIDEO,
+        permission.READ_MEDIA_IMAGES
+      )
       perm33.forEach {
         if (context.checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED) {
           return false
@@ -137,7 +145,7 @@ fun checkPermissions(context: Context): Boolean {
   return true
 }
 
-fun initSystem(){
+fun initSystem() {
   ImageLister.instance.initialize()
   VideoLister.instance.initialize()
   MusicLister.instance.initialize()

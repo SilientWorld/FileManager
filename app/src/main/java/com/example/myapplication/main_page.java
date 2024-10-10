@@ -96,7 +96,7 @@ public class main_page extends AppCompatActivity {
         Intent intent = new Intent(context, ViewFileActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("folder",
-        Environment.getExternalStorageDirectory().getPath() + "/Download");
+            Environment.getExternalStorageDirectory().getPath() + "/Download");
         intent.putExtras(bundle);
         startActivity(intent);
       }
@@ -104,7 +104,7 @@ public class main_page extends AppCompatActivity {
         Intent intent = new Intent(context, ViewFileActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("folder",
-        Environment.getExternalStorageDirectory().getPath() + "/Documents");
+            Environment.getExternalStorageDirectory().getPath() + "/Documents");
         intent.putExtras(bundle);
         startActivity(intent);
       }
@@ -112,7 +112,7 @@ public class main_page extends AppCompatActivity {
         Intent intent = new Intent(context, ViewFileActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("folder",
-        Environment.getExternalStorageDirectory().getPath() + "/Recordings");
+            Environment.getExternalStorageDirectory().getPath() + "/Recordings");
         intent.putExtras(bundle);
         startActivity(intent);
       }

@@ -33,7 +33,7 @@ class ClipHelper private constructor(context: Context) {
       context,
       context.applicationContext.packageName + ".provider",
       file
-      )
+    )
     val clip = ClipData.newUri(contentResolver, label, uri)
     clipboard.setPrimaryClip(clip)
   }
@@ -47,8 +47,8 @@ class ClipHelper private constructor(context: Context) {
     return null
   }
 
-  fun copyFolder(folder: String){
-    val clip = ClipData.newPlainText("SingleFolderCopy","$ENCODE_LABEL:${folder}")
+  fun copyFolder(folder: String) {
+    val clip = ClipData.newPlainText("SingleFolderCopy", "$ENCODE_LABEL:${folder}")
     clipboard.setPrimaryClip(clip)
   }
 
@@ -58,8 +58,8 @@ class ClipHelper private constructor(context: Context) {
       val item: ClipData.Item = getItemAt(0)
       item.text
     }
-    if (content != null){
-      if (content.startsWith(ENCODE_LABEL)){
+    if (content != null) {
+      if (content.startsWith(ENCODE_LABEL)) {
         return content.split(':').last()
       }
     }

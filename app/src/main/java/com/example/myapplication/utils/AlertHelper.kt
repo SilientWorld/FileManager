@@ -59,7 +59,6 @@ class AlertHelper {
     fun showNoPasteAlert(
       context: Context,
       onCopy: () -> Unit,
-      onPaste: () -> Unit,
       onDelete: () -> Unit,
       onCut: () -> Unit,
       onInfo: () -> Unit
@@ -117,8 +116,8 @@ class AlertHelper {
           when (which) {
             0 -> onPaste()
             1 -> onInfo()
-            2-> onNewFile()
-            3-> onNewFolder()
+            2 -> onNewFile()
+            3 -> onNewFolder()
           }
         }
         .setNegativeButton(context.getString(R.string.action_cancel))

@@ -1,5 +1,6 @@
 package com.example.myapplication.compose.ui
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.Context
@@ -160,7 +161,7 @@ class FileColumn(val context: Context) {
     }
   }
 
-  private companion object{
+  private companion object {
     var dropTarget: String? = null
   }
 
@@ -177,7 +178,7 @@ class FileColumn(val context: Context) {
       object : DragAndDropTarget {
         override fun onDrop(event: DragAndDropEvent): Boolean {
           val target = File(dropTarget ?: return false)
-          if (!target.exists()){
+          if (!target.exists()) {
             return false.also {
               dropTarget = null
             }
@@ -197,7 +198,7 @@ class FileColumn(val context: Context) {
             }
           }
 
-          if (source.path == target.path){
+          if (source.path == target.path) {
             dropTarget = null
             return false
           }
@@ -206,14 +207,14 @@ class FileColumn(val context: Context) {
             if (source.isFile) {
               val dir = source.parent ?: return false
               val f = File("$dir/合并文件夹")
-              if (!f.exists()){
+              if (!f.exists()) {
                 f.mkdir()
               }
-              ClipHelper.getInstance(context).copy(source,context)
+              ClipHelper.getInstance(context).copy(source, context)
               val sourceUri = ClipHelper.getInstance(context).paste() ?: return false
               val inputStream = try {
                 context.contentResolver.openInputStream(sourceUri)
-              }catch (e: FileNotFoundException) {
+              } catch (e: FileNotFoundException) {
                 return false.also {
                   dropTarget = null
                 }
@@ -223,7 +224,7 @@ class FileColumn(val context: Context) {
                 actualFile.writeBytes(IOUtils.toByteArray(inputStream))
                 inputStream.close()
               }
-              ClipHelper.getInstance(context).copy(target,context)
+              ClipHelper.getInstance(context).copy(target, context)
               val targetUri = ClipHelper.getInstance(context).paste() ?: return false
               val inputStream2 = context.contentResolver.openInputStream(targetUri)
               if (inputStream2 != null) {
@@ -237,13 +238,13 @@ class FileColumn(val context: Context) {
                 Toast.LENGTH_SHORT
               ).show()
             } else if (source.isDirectory) {
-              ClipHelper.getInstance(context).copy(target,context)
+              ClipHelper.getInstance(context).copy(target, context)
               val sourceUri = ClipHelper.getInstance(context).paste() ?: return false.also {
                 dropTarget = null
               }
               val inputStream = try {
                 context.contentResolver.openInputStream(sourceUri)
-              }catch (e: FileNotFoundException) {
+              } catch (e: FileNotFoundException) {
                 return false.also {
                   dropTarget = null
                 }
@@ -261,13 +262,13 @@ class FileColumn(val context: Context) {
             }
           } else if (target.isDirectory) {
             if (source.isFile) {
-              ClipHelper.getInstance(context).copy(source,context)
-              val sourceUri = ClipHelper.getInstance(context).paste() ?:  return false.also {
+              ClipHelper.getInstance(context).copy(source, context)
+              val sourceUri = ClipHelper.getInstance(context).paste() ?: return false.also {
                 dropTarget = null
               }
               val inputStream = try {
                 context.contentResolver.openInputStream(sourceUri)
-              }catch (e: FileNotFoundException) {
+              } catch (e: FileNotFoundException) {
                 return false.also {
                   dropTarget = null
                 }
@@ -349,8 +350,7 @@ class FileColumn(val context: Context) {
                   )
                 )
               })
-            }
-          ,
+            },
           dragAndDropCallBack = dragAndDropCallBack,
           onItemClick = onItemClick
         )
@@ -367,7 +367,7 @@ class FileColumn(val context: Context) {
     forceName: String? = null,
     forceParent: String? = null,
     update: (() -> Unit)? = null,
-    dragAndDrop: Modifier = Modifier,
+    @SuppressLint("ModifierParameter") dragAndDrop: Modifier = Modifier,
     dragAndDropCallBack: DragAndDropTarget? = null,
     onItemClick: ((String) -> Unit)? = null
   ) {
@@ -443,7 +443,8 @@ class FileColumn(val context: Context) {
         .padding(vertical = 3.dp)
         .clickable {
           onItemClick?.invoke(file.path)
-        }.then(
+        }
+        .then(
           if (dragAndDropCallBack != null) {
             Modifier.dragAndDropTarget(
               shouldStartDragAndDrop = { event ->
@@ -456,12 +457,10 @@ class FileColumn(val context: Context) {
                 result
               }, target = dragAndDropCallBack
             )
-          }else{
+          } else {
             Modifier
           }
-        )
-
-        ,
+        ),
       verticalAlignment = Alignment.CenterVertically,
     ) {
       Image(
@@ -510,9 +509,6 @@ class FileColumn(val context: Context) {
                     ClipHelper.getInstance(context).copy(f, context)
                   }
                 },
-                onPaste = {
-
-                },
                 onDelete = {
                   AlertHelper.showDeleteAlert(context, file.path) {
                     update?.invoke()
@@ -533,9 +529,6 @@ class FileColumn(val context: Context) {
                   if (f.isDirectory) {
                     ClipHelper.getInstance(context).copyFolder(f.path)
                   }
-                },
-                onPaste = {
-
                 },
                 onDelete = {
                   AlertHelper.showDeleteAlert(context, file.path) {

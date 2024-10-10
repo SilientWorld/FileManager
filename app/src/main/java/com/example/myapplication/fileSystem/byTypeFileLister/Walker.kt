@@ -2,8 +2,13 @@ package com.example.myapplication.fileSystem.byTypeFileLister
 
 import java.io.File
 
-fun Lister.walkDir(directory: File,list: MutableList<String>,pattern: Regex ,ignoreDotFile: Boolean = true){
-  if (!directory.exists() || !directory.isDirectory){
+fun Lister.walkDir(
+  directory: File,
+  list: MutableList<String>,
+  pattern: Regex,
+  ignoreDotFile: Boolean = true
+) {
+  if (!directory.exists() || !directory.isDirectory) {
     return
   }
   directory.listFiles()?.forEach {

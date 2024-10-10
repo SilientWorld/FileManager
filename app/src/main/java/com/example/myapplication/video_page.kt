@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
@@ -17,14 +18,11 @@ import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
-import com.example.myapplication.adapters.ImageAdapter
-import com.example.myapplication.adapters.ImageModel
 import com.example.myapplication.adapters.VideoAdapter
 import com.example.myapplication.adapters.VideoModel
+import com.example.myapplication.compose.SearchActivity
 import com.example.myapplication.fileSystem.CutHelper
 import com.example.myapplication.fileSystem.byTypeFileLister.DocumentLister
-import com.example.myapplication.fileSystem.byTypeFileLister.DocumentLister.Companion
-import com.example.myapplication.fileSystem.byTypeFileLister.VideoLister.Companion.regex
 import com.example.myapplication.fileSystem.byTypeFileLister.VideoLister.Companion.instance
 import com.example.myapplication.utils.AlertHelper
 import com.example.myapplication.utils.ClipHelper
@@ -73,9 +71,12 @@ class video_page : AppCompatActivity() {
     searchImageView.setOnClickListener { v: View? ->
       val intent =
         Intent(
-          this@video_page,
-          video_page_search::class.java
+          this,
+          SearchActivity::class.java
         )
+      val bundle = Bundle()
+      bundle.putString("type", "video")
+      intent.putExtras(bundle)
       startActivity(intent) // 跳转到搜索页面
     }
 
@@ -112,7 +113,7 @@ class video_page : AppCompatActivity() {
     CoroutineScope(Dispatchers.Default).launch {
       val loadingTextView = findViewById<TextView>(R.id.LoadingBlankText)
       val defaultText = loadingTextView.text
-      launch { loadingText(loadingTextView,defaultText) }
+      launch { loadingText(loadingTextView, defaultText) }
       videoList = instance.dateOrderedList()
       val videoModels = ArrayList<VideoModel>()
       for (path in videoList) {
@@ -120,8 +121,7 @@ class video_page : AppCompatActivity() {
       }
       runOnUiThread {
         val adapter = VideoAdapter(this@video_page, videoModels)
-        val grid = findViewById<GridView>(R.id.VideoGrid)
-        grid.setAdapter(adapter)
+        videoGrid.setAdapter(adapter)
         findViewById<TextView>(R.id.LoadingBlankText).visibility = View.GONE
       }
     }
@@ -144,7 +144,7 @@ class video_page : AppCompatActivity() {
           }
           val name = uri.path?.split('/')?.last() ?: "somePastedItem"
           val ext = name.split('.').last()
-          if (!"$ext.".matches(DocumentLister.regex)){
+          if (!"$ext.".matches(DocumentLister.regex)) {
             Toast.makeText(this, getString(R.string.error_nothing_to_paste), Toast.LENGTH_SHORT)
               .show()
             return@showItemAlert
@@ -188,12 +188,17 @@ class video_page : AppCompatActivity() {
         when (which) {
           0 -> {
             videoListOrderType = 0
-            runOnUiThread{
+            runOnUiThread {
               loadingTextView.visibility = View.VISIBLE
             }
-            CoroutineScope(Dispatchers.IO).launch { loadingText(loadingTextView,loadingTextView.text) }
+            CoroutineScope(Dispatchers.IO).launch {
+              loadingText(
+                loadingTextView,
+                loadingTextView.text
+              )
+            }
             update {
-              runOnUiThread{
+              runOnUiThread {
                 loadingTextView.visibility = View.GONE
                 Toast.makeText(
                   this@video_page,
@@ -206,12 +211,17 @@ class video_page : AppCompatActivity() {
 
           1 -> {
             videoListOrderType = 1
-            runOnUiThread{
+            runOnUiThread {
               loadingTextView.visibility = View.VISIBLE
             }
-            CoroutineScope(Dispatchers.IO).launch { loadingText(loadingTextView,loadingTextView.text) }
+            CoroutineScope(Dispatchers.IO).launch {
+              loadingText(
+                loadingTextView,
+                loadingTextView.text
+              )
+            }
             update {
-              runOnUiThread{
+              runOnUiThread {
                 loadingTextView.visibility = View.GONE
                 Toast.makeText(
                   this@video_page,
@@ -229,7 +239,7 @@ class video_page : AppCompatActivity() {
       .show()
   }
 
-  private fun update(runSomethingMore: (()->Unit)? = null) {
+  private fun update(runSomethingMore: (() -> Unit)? = null) {
     instance.initialize {
       videoList = when (videoListOrderType) {
         0 -> instance.dateOrderedList()
@@ -249,6 +259,7 @@ class video_page : AppCompatActivity() {
     }
   }
 
+  @SuppressLint("SetTextI18n")
   private fun loadingText(
     loadingTextView: TextView,
     defaultText: CharSequence,

@@ -58,9 +58,10 @@ class store_page : AppCompatActivity() {
       val musicSizeString = WrappedFile.getSizeString(musicSize)
       val documentSize = DocumentLister.instance.getFullSize()
       val documentSizeString = WrappedFile.getSizeString(documentSize)
-      val otherSize = systemStorageInfo.getTotalStorageSize() - systemStorageInfo.getFreeStorageSize() - imageSize - musicSize - documentSize
+      val otherSize =
+        systemStorageInfo.getTotalStorageSize() - systemStorageInfo.getFreeStorageSize() - imageSize - musicSize - documentSize
       val otherSizeString = WrappedFile.getSizeString(otherSize)
-      runOnUiThread{
+      runOnUiThread {
         findViewById<TextView>(R.id.pictureStorage).text = imageSizeString
         findViewById<TextView>(R.id.videoStorage).text = videoSizeString
         findViewById<TextView>(R.id.audioStorage).text = musicSizeString
