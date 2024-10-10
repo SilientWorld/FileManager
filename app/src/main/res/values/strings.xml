@@ -1,0 +1,130 @@
+<resources>
+  <string name="app_name">文件管理器</string>
+  <string name="hello">文件管理器</string>
+  <string name="search">浏览</string>
+  <string name="edit">编辑</string>
+  <string name="picture">图片</string>
+  <string name="video">视频</string>
+  <string name="music">音乐</string>
+  <string name="document">文件</string>
+  <string name="app">其他</string>
+  <string name="location">位置</string>
+  <string name="store">内部存储</string>
+  <string name="delete">最近删除</string>
+  <string name="download">下载与接收</string>
+  <string name="source">来源</string>
+  <string name="qq">QQ</string>
+  <string name="wechat">微信</string>
+  <string name="internet">浏览器</string>
+  <string name="radio">录音机</string>
+  <string name="installpackage">安装包</string>
+  <string name="Camera">Camera</string>
+  <string name="Screenshots">屏幕截图</string>
+  <!-- Strings used for fragments for navigation -->
+  <string name="first_fragment_label">First Fragment</string>
+  <string name="second_fragment_label">Second Fragment</string>
+  <string name="next">Next</string>
+  <string name="previous">Previous</string>
+  <string name="Delete">删除</string>
+  <string name="copy">复制</string>
+  <string name="cut">剪切</string>
+  <string name="paste">粘贴</string>
+  <string name="tiktok">抖音</string>
+  <string name="alipay">支付宝</string>
+  <string name="taobao">淘宝</string>
+  <string name="little_red_book">小红书</string>
+  <string name="unload">卸载</string>
+  <string name="store_package">压缩包</string>
+  <string name="phone_information">通话与信息</string>
+  <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+  <string name="title_activity_require_permission">RequirePermissionActivity</string>
+
+  <string name="require_permission_readwrite">需要读取/写入存储权限以继续</string>
+  <string name="require_manage_storage">需要管理存储权限以继续</string>
+  <string name="give_permission">授权</string>
+
+  <string name="used_storage_percentage">%d%%</string>
+  <string name="used_storage">已使用\n%s / %s</string>
+
+  <string name="loading">加载中</string>
+
+  <!-- Actions -->
+  <string name="select_action">选择操作</string>
+  <string name="action_copy">复制</string>
+  <string name="action_paste">粘贴</string>
+  <string name="action_delete">删除</string>
+  <string name="action_cut">剪切</string>
+  <string name="action_info">信息</string>
+  <string name="action_new_file">新建文件</string>
+  <string name="action_new_folder">新建文件夹</string>
+  <string name="action_cancel">取消</string>
+
+  <!-- Confirmations -->
+  <string name="confirm">确认</string>
+  <string name="okay">好的</string>
+  <string name="cancel">取消</string>
+  <string name="confirm_to_delete">确认删除</string>
+  <string name="confirm_to_delete_file">确认删除文件: %s</string>
+
+  <string name="file_info">文件信息</string>
+  <string name="file_info_text">
+文件名：%s\n
+路径：%s\n
+大小：%s\n
+最后修改时间：%s
+  </string>
+
+  <string name="advanced">查看什么</string>
+  <string name="settings">软件设置</string>
+  <string name="all_files">全部文件</string>
+  <string name="storage_info">内部存储信息</string>
+
+  <string name="camera">相机</string>
+  <string name="pictures">公用图片</string>
+  <string name="documents">公用文档</string>
+  <string name="prev_folder">上一级目录</string>
+
+  <string name="input_name">请输入名称</string>
+  <string name="create_directory">将在 %s 创建文件夹</string>
+  <string name="create_file">将在 %s 创建文件</string>
+
+  <string name="error_nothing_to_paste">未找到可粘贴的内容</string>
+  <string name="error_need_input_name">请输入名称</string>
+  <string name="error_already_exist">已存在此文件（夹）</string>
+  <string name="title_activity_view_file">ViewFileActivity</string>
+</resources>
