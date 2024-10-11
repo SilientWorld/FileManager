@@ -32,14 +32,14 @@ class ImageModel(image: File) {
 class ImageAdapter(context: Context, list: ArrayList<ImageModel>) :
   ArrayAdapter<ImageModel>(context, 0, list) {
   private val settingStorage = SettingStorage(context)
-  private val showExtension = settingStorage.get(settingStorage.showExtension)
+  private val hideExtension = settingStorage.get(settingStorage.hideExtension)
   override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
     val listView = convertView ?: LayoutInflater.from(context).inflate(
       R.layout.picture_card_item, parent, false
     )
     val model = getItem(position) ?: throw RuntimeException()
     listView.findViewById<ImageView>(R.id.pictureCardImage).setImageBitmap(model.thumbnail)
-    listView.findViewById<TextView>(R.id.pictureCardText).text = if (showExtension != false) {
+    listView.findViewById<TextView>(R.id.pictureCardText).text = if (hideExtension == false) {
       model.name
     } else {
       model.nameWithoutExt

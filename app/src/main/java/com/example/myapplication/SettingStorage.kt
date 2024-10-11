@@ -16,7 +16,8 @@ import kotlinx.coroutines.runBlocking
 val Context.settingStore: DataStore<Preferences> by preferencesDataStore(name = "app_settings")
 
 class SettingStorage(private val context: Context) {
-  val showExtension = booleanPreferencesKey("show_extension")
+  val hideExtension = booleanPreferencesKey("hide_extension")
+  val hideHiddenFile = booleanPreferencesKey("hide_hidden_file")
 
 
   fun <T> get(key: Preferences.Key<T>): T? =

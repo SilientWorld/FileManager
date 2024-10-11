@@ -99,14 +99,22 @@ class SettingActivity : ComponentActivity() {
           }
 
           setting.BooleanSetting(
-            name = ContextCompat.getString(context, R.string.setting_show_extension),
+            name = ContextCompat.getString(context, R.string.setting_hide_extension),
             description = ContextCompat.getString(
               context,
-              R.string.setting_show_extension_description
+              R.string.setting_hide_extension_description
             ),
-            initialState = settingStorage.get(settingStorage.showExtension) ?: true
-          ) { settingStorage.set(settingStorage.showExtension, it) }
+            initialState = settingStorage.get(settingStorage.hideExtension) ?: false
+          ) { settingStorage.set(settingStorage.hideExtension, it) }
 
+          setting.BooleanSetting(
+            name = ContextCompat.getString(context, R.string.setting_hide_hidden_file),
+            description = ContextCompat.getString(
+              context,
+              R.string.setting_hide_hidden_file_description
+            ),
+            initialState = settingStorage.get(settingStorage.hideHiddenFile) ?: false
+          ) { settingStorage.set(settingStorage.hideHiddenFile, it) }
 
           Spacer(modifier = Modifier.weight(1f))
 

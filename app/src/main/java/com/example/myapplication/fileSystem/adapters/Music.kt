@@ -24,14 +24,14 @@ class MusicModel(music: File) {
 class MusicAdapter(context: Context, list: ArrayList<MusicModel>) :
   ArrayAdapter<MusicModel>(context, 0, list) {
   private val settingStorage = SettingStorage(context)
-  private val showExtension = settingStorage.get(settingStorage.showExtension)
+  private val hideExtension = settingStorage.get(settingStorage.hideExtension)
   override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
     val listView = convertView ?: LayoutInflater.from(context).inflate(
       R.layout.music_card_item, parent, false
     )
     val model = getItem(position) ?: throw RuntimeException()
     val card = listView.findViewById<TextView>(R.id.iconButton)
-    card.text = if (showExtension != false) {
+    card.text = if (hideExtension == false) {
       model.name
     } else {
       model.nameWithoutExt

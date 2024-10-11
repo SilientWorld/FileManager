@@ -94,10 +94,18 @@ class FileColumn(val context: Context) {
       fileList.clear()
       val wfList = cwd.listFiles()?.map { WrappedFile(it) }
       if (wfList != null) {
-        if (sortByTime) {
-          fileList.addAll(wfList.sortedBy { it.lastModifiedTime })
-        } else {
-          fileList.addAll(wfList.sortedBy { it.size })
+        if (settingStorage.get(settingStorage.hideHiddenFile) == true) { // 隐藏点文件，默认 false
+          if (sortByTime) {
+            fileList.addAll(wfList.sortedBy { it.lastModifiedTime }.filter { !it.name.startsWith('.') })
+          } else {
+            fileList.addAll(wfList.sortedBy { it.size }.filter { !it.name.startsWith('.') })
+          }
+        }else{
+          if (sortByTime) {
+            fileList.addAll(wfList.sortedBy { it.lastModifiedTime })
+          } else {
+            fileList.addAll(wfList.sortedBy { it.size })
+          }
         }
       }
       isOkay = true
@@ -529,7 +537,7 @@ class FileColumn(val context: Context) {
       ) {
         Text(
           text = forceName
-            ?: if (settingStorage.get(settingStorage.showExtension) == false && !file.name.startsWith('.')) {
+            ?: if (settingStorage.get(settingStorage.hideExtension) == true && !file.name.startsWith('.')) {
               file.nameWithoutExt
             } else {
               file.name
