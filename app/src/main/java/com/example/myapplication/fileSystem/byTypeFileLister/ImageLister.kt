@@ -7,14 +7,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-class ImageLister private constructor() : Lister() {
+class ImageLister private constructor() : Lister {
   companion object {
     val instance by lazy { ImageLister() }
     val directories = listOf("DCIM", "Pictures", "Download")
-    val regex = "\\.(jpg|png|jpeg|webp)".toRegex()
+    val regex = "\\.(jpg|png|jpeg|webp)$".toRegex()
   }
 
-  val imageList = mutableListOf<String>()
+  private val imageList = mutableListOf<String>()
 
   fun initialize(onFinished: (() -> Unit)? = null) {
     imageList.clear()
@@ -31,7 +31,7 @@ class ImageLister private constructor() : Lister() {
     return
   }
 
-  fun dateOrderedList(): List<String> {
+  override fun dateOrderedList(): List<String> {
     val wrappedFileList = mutableListOf<WrappedFile>()
     imageList.forEach { wrappedFileList.add(WrappedFile(File(it))) }
     wrappedFileList.sortBy { it.lastModifiedTime }
@@ -40,7 +40,7 @@ class ImageLister private constructor() : Lister() {
     return result
   }
 
-  fun sizeOrderedList(): List<String> {
+  override fun sizeOrderedList(): List<String> {
     val wrappedFileList = mutableListOf<WrappedFile>()
     imageList.forEach { wrappedFileList.add(WrappedFile(File(it))) }
     wrappedFileList.sortBy { it.size }
@@ -49,7 +49,7 @@ class ImageLister private constructor() : Lister() {
     return result
   }
 
-  fun getFullSize(): ULong {
+  override fun getFullSize(): ULong {
     var size = 0UL
     val wrappedFileList = mutableListOf<WrappedFile>()
     imageList.forEach { wrappedFileList.add(WrappedFile(File(it))) }

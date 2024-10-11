@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-class DocumentLister : Lister() {
+class DocumentLister : Lister {
   companion object {
     val instance by lazy { DocumentLister() }
     val directories = listOf("Documents", "Download")
@@ -31,7 +31,7 @@ class DocumentLister : Lister() {
     return
   }
 
-  fun dateOrderedList(): List<String> {
+  override fun dateOrderedList(): List<String> {
     val wrappedFileList = mutableListOf<WrappedFile>()
     documentList.forEach { wrappedFileList.add(WrappedFile(File(it))) }
     wrappedFileList.sortBy { it.lastModifiedTime }
@@ -40,7 +40,7 @@ class DocumentLister : Lister() {
     return result
   }
 
-  fun sizeOrderedList(): List<String> {
+  override fun sizeOrderedList(): List<String> {
     val wrappedFileList = mutableListOf<WrappedFile>()
     documentList.forEach { wrappedFileList.add(WrappedFile(File(it))) }
     wrappedFileList.sortBy { it.size }
@@ -49,7 +49,7 @@ class DocumentLister : Lister() {
     return result
   }
 
-  fun getFullSize(): ULong {
+  override fun getFullSize(): ULong {
     var size = 0UL
     val wrappedFileList = mutableListOf<WrappedFile>()
     documentList.forEach { wrappedFileList.add(WrappedFile(File(it))) }

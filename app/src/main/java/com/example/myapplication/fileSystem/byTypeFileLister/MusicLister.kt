@@ -7,15 +7,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-class MusicLister : Lister() {
+class MusicLister : Lister {
   companion object {
     val instance by lazy { MusicLister() }
     val directories =
       listOf("Recordings", "Download", "Audiobooks", "Music", "Podcasts", "Ringtones")
-    val regex = "\\.(mp3|ogg|aac|wav)".toRegex()
+    val regex = "\\.(mp3|ogg|aac|wav)$".toRegex()
   }
 
-  val musicList = mutableListOf<String>()
+  private val musicList = mutableListOf<String>()
 
   fun initialize(onFinished: (() -> Unit)? = null) {
     musicList.clear()
@@ -32,7 +32,7 @@ class MusicLister : Lister() {
     return
   }
 
-  fun dateOrderedList(): List<String> {
+  override fun dateOrderedList(): List<String> {
     val wrappedFileList = mutableListOf<WrappedFile>()
     musicList.forEach { wrappedFileList.add(WrappedFile(File(it))) }
     wrappedFileList.sortBy { it.lastModifiedTime }
@@ -41,7 +41,7 @@ class MusicLister : Lister() {
     return result
   }
 
-  fun sizeOrderedList(): List<String> {
+  override fun sizeOrderedList(): List<String> {
     val wrappedFileList = mutableListOf<WrappedFile>()
     musicList.forEach { wrappedFileList.add(WrappedFile(File(it))) }
     wrappedFileList.sortBy { it.size }
@@ -50,7 +50,7 @@ class MusicLister : Lister() {
     return result
   }
 
-  fun getFullSize(): ULong {
+  override fun getFullSize(): ULong {
     var size = 0UL
     val wrappedFileList = mutableListOf<WrappedFile>()
     musicList.forEach { wrappedFileList.add(WrappedFile(File(it))) }

@@ -7,11 +7,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
-class VideoLister : Lister() {
+class VideoLister : Lister {
   companion object {
     val instance by lazy { VideoLister() }
     val directories = listOf("DCIM", "Download", "Movies")
-    val regex = "\\.(mp4|avi|video|webm)".toRegex()
+    val regex = "\\.(mp4|avi|video|webm)$".toRegex()
   }
 
   val videoList = mutableListOf<String>()
@@ -31,7 +31,7 @@ class VideoLister : Lister() {
     return
   }
 
-  fun dateOrderedList(): List<String> {
+  override fun dateOrderedList(): List<String> {
     val wrappedFileList = mutableListOf<WrappedFile>()
     videoList.forEach { wrappedFileList.add(WrappedFile(File(it))) }
     wrappedFileList.sortBy { it.lastModifiedTime }
@@ -40,7 +40,7 @@ class VideoLister : Lister() {
     return result
   }
 
-  fun sizeOrderedList(): List<String> {
+  override fun sizeOrderedList(): List<String> {
     val wrappedFileList = mutableListOf<WrappedFile>()
     videoList.forEach { wrappedFileList.add(WrappedFile(File(it))) }
     wrappedFileList.sortBy { it.size }
@@ -49,7 +49,7 @@ class VideoLister : Lister() {
     return result
   }
 
-  fun getFullSize(): ULong {
+  override fun getFullSize(): ULong {
     var size = 0UL
     val wrappedFileList = mutableListOf<WrappedFile>()
     videoList.forEach { wrappedFileList.add(WrappedFile(File(it))) }
