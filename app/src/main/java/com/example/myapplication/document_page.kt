@@ -19,8 +19,8 @@ import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
-import com.example.myapplication.adapters.DocumentAdapter
-import com.example.myapplication.adapters.DocumentModel
+import com.example.myapplication.fileSystem.adapters.DocumentAdapter
+import com.example.myapplication.fileSystem.adapters.DocumentModel
 import com.example.myapplication.compose.SearchActivity
 import com.example.myapplication.fileSystem.CutHelper
 import com.example.myapplication.fileSystem.byTypeFileLister.DocumentLister.Companion.instance

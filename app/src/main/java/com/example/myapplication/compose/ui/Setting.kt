@@ -29,7 +29,7 @@ class Setting(
   @Composable
   fun BooleanSetting(
     name: String,
-    initialState: Boolean = true,
+    initialState: Boolean? = true,
     description: String? = null,
     onCheckedChange: ((Boolean) -> Unit)? = null
   ) {
@@ -55,14 +55,16 @@ class Setting(
         )
       }
       Spacer(modifier = Modifier.weight(1f))
-      Switch(
-        checked = checkState,
-        onCheckedChange = {
-          checkState = it
-          onCheckedChange?.invoke(it)
-        },
-        modifier = switchModifier
-      )
+      if (checkState != null) {
+        Switch(
+          checked = checkState!!,
+          onCheckedChange = {
+            checkState = it
+            onCheckedChange?.invoke(it)
+          },
+          modifier = switchModifier
+        )
+      }
     }
   }
 }

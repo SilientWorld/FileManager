@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import com.example.myapplication.R
+import com.example.myapplication.SettingStorage
 import com.example.myapplication.compose.PasteHelper
 import com.example.myapplication.fileSystem.CutHelper
 import com.example.myapplication.fileSystem.WrappedFile
@@ -72,6 +73,7 @@ import java.io.FileNotFoundException
 
 class FileColumn(val context: Context) {
   private val fileList = mutableStateListOf<WrappedFile>()
+  private val settingStorage = SettingStorage(context)
 
   @Composable
   fun Draw(startFolder: String) {
@@ -132,7 +134,8 @@ class FileColumn(val context: Context) {
         Text(
           text = path,
           fontSize = 24.sp,
-          modifier = Modifier.padding(start = 10.dp)
+          modifier = Modifier
+            .padding(start = 10.dp)
             .fillMaxWidth(0.75f),
           maxLines = 1,
           overflow = TextOverflow.Ellipsis
@@ -526,13 +529,21 @@ class FileColumn(val context: Context) {
           .fillMaxWidth(0.8f)
       ) {
         Text(
-          text = forceName ?: file.name,
+          text = forceName ?: if (settingStorage.get(settingStorage.showExtension) == false || file.type == Type.DIRECTORY){
+            file.nameWithoutExt
+          }else{
+            file.name
+          },
           fontSize = 24.sp,
           maxLines = 1,
           overflow = TextOverflow.Ellipsis
         )
         Text(
-          text = forceParent ?: file.getModifiedTimeString(context),
+          text = forceParent ?: if (file.type == Type.FILE){
+            "${file.getModifiedTimeString(context)}   ${file.getSizeString()}"
+          }else{
+            file.getModifiedTimeString(context)
+          },
           fontSize = 15.sp,
           color = Color.Gray,
           maxLines = 1

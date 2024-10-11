@@ -4,10 +4,10 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-10-09T05:47:14.530453572Z">
+        <DropdownSelection timestamp="2024-10-11T03:45:10.780689385Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=/home/kagura/.android/avd/Pixel_6_API_33.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=/home/kagura/.android/avd/Pixel_3_API_30.avd" />
             </handle>
           </Target>
         </DropdownSelection>

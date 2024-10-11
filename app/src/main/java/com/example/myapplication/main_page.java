@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.compose.SearchActivity;
+import com.example.myapplication.compose.SettingActivity;
 import com.example.myapplication.compose.ViewFileActivity;
 import com.example.myapplication.fileSystem.DeleteHelper;
 import java.io.File;
@@ -44,6 +45,7 @@ public class main_page extends AppCompatActivity {
     findViewById(R.id.MainPageDCIMButton).setOnClickListener(buttonClickerHandler);
     findViewById(R.id.MainPagePicturesButton).setOnClickListener(buttonClickerHandler);
     findViewById(R.id.MainPageSearchButton).setOnClickListener(buttonClickerHandler);
+    findViewById(R.id.MainPageSettingsButton).setOnClickListener(buttonClickerHandler);
   }
 
   @Override protected void onDestroy() {
@@ -129,6 +131,10 @@ public class main_page extends AppCompatActivity {
       }
       if (view.getId() == R.id.MainPageSearchButton) {
         Intent intent = new Intent(context, SearchActivity.class);
+        startActivity(intent);
+      }
+      if (view.getId() == R.id.MainPageSettingsButton) {
+        Intent intent = new Intent(context, SettingActivity.class);
         startActivity(intent);
       }
     }
