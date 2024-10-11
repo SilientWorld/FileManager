@@ -14,7 +14,7 @@ class VideoLister : Lister {
     val regex = "\\.(mp4|avi|video|webm)$".toRegex()
   }
 
-  val videoList = mutableListOf<String>()
+  private val videoList = mutableListOf<String>()
 
   fun initialize(onFinished: (() -> Unit)? = null) {
     videoList.clear()

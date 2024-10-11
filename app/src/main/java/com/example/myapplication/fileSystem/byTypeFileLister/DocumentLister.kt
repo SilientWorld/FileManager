@@ -14,7 +14,7 @@ class DocumentLister : Lister {
     val regex = "\\.((xls|doc|ppt)(x|)|txt|htm(l|)|pdf)".toRegex()
   }
 
-  val documentList = mutableListOf<String>()
+  private val documentList = mutableListOf<String>()
 
   fun initialize(onFinished: (() -> Unit)? = null) {
     documentList.clear()

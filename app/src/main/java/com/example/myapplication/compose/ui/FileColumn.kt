@@ -93,7 +93,7 @@ class FileColumn(val context: Context) {
       isOkay = false
       fileList.clear()
       val wfList = cwd.listFiles()?.map { WrappedFile(it) }
-      if (wfList!=null) {
+      if (wfList != null) {
         if (sortByTime) {
           fileList.addAll(wfList.sortedBy { it.lastModifiedTime })
         } else {
@@ -169,7 +169,6 @@ class FileColumn(val context: Context) {
             ), "sortMethod"
           )
         }
-
 
       }
       if (!isOkay) {
@@ -529,19 +528,20 @@ class FileColumn(val context: Context) {
           .fillMaxWidth(0.8f)
       ) {
         Text(
-          text = forceName ?: if (settingStorage.get(settingStorage.showExtension) == false || file.type == Type.DIRECTORY){
-            file.nameWithoutExt
-          }else{
-            file.name
-          },
+          text = forceName
+            ?: if (settingStorage.get(settingStorage.showExtension) == false && !file.name.startsWith('.')) {
+              file.nameWithoutExt
+            } else {
+              file.name
+            },
           fontSize = 24.sp,
           maxLines = 1,
           overflow = TextOverflow.Ellipsis
         )
         Text(
-          text = forceParent ?: if (file.type == Type.FILE){
+          text = forceParent ?: if (file.type == Type.FILE) {
             "${file.getModifiedTimeString(context)}   ${file.getSizeString()}"
-          }else{
+          } else {
             file.getModifiedTimeString(context)
           },
           fontSize = 15.sp,
