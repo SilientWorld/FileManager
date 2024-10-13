@@ -28,7 +28,7 @@ fn get_sys() -> String {
 }
 
 #[no_mangle]
-pub extern "system" fn Java_com_example_myapplication_utils_Sysinfo_getSystemNative<'local>(
+pub extern "system" fn Java_com_dazuoye_filemanager_utils_Sysinfo_getSystemNative<'local>(
     env: JNIEnv<'local>,
     _: JClass<'local>,
 ) -> jstring {
