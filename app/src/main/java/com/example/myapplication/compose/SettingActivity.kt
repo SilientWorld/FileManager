@@ -36,6 +36,7 @@ import com.example.myapplication.R
 import com.example.myapplication.SettingStorage
 import com.example.myapplication.compose.ui.Setting
 import com.example.myapplication.main_page
+import com.example.myapplication.utils.Sysinfo
 
 class SettingActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,6 +133,11 @@ class SettingActivity : ComponentActivity() {
           setting.BooleanSetting(
             name = "系统信息",
             description = "Android 版本：${Build.VERSION.RELEASE}\n手机型号: ${Build.MANUFACTURER} ${Build.MODEL}",
+            initialState = null
+          ) { }
+          setting.BooleanSetting(
+            name = "高级系统信息",
+            description = Sysinfo.getSystem(),
             initialState = null
           ) { }
 
