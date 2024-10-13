@@ -17,12 +17,12 @@ fn get_sys() -> String {
     let available_memory = sys.available_memory()/1024/1024;
 
     let kernel_string = match kernel {
-        Some(k) => format!("kernel: {}\n", k),
+        Some(k) => format!("Kernel: {}\n", k),
         None => String::new(),
     };
 
     format!(
-        "{}memory:{}MB available, {}MB in total",
+        "{}Memory: {}MB available, {}MB in total",
         kernel_string, available_memory, all_memory
     )
 }
@@ -34,7 +34,7 @@ pub extern "system" fn Java_com_example_myapplication_utils_Sysinfo_getSystemNat
 ) -> jstring {
     let page_size = get_page_size();
     let output = env
-        .new_string(format!("{}\nPagesize: {}", get_sys(), page_size))
+        .new_string(format!("{}\nPage Size: {}", get_sys(), page_size))
         .expect("Couldn't create java string!");
     output.into_raw()
 }

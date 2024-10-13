@@ -1,6 +1,5 @@
 <resources>
   <string name="app_name">文件管理器</string>
-  <string name="hello">文件管理器</string>
   <string name="search">浏览</string>
   <string name="edit">编辑</string>
   <string name="picture">图片</string>
@@ -12,11 +11,8 @@
   <string name="store">内部存储</string>
   <string name="delete">最近删除</string>
   <string name="download">下载与接收</string>
-  <string name="source">来源</string>
-  <string name="internet">浏览器</string>
+  <string name="source">快速查看</string>
   <string name="radio">录音机</string>
-  <string name="next">Next</string>
-  <string name="previous">Previous</string>
   <string name="Delete">删除</string>
   <string name="copy">复制</string>
   <string name="cut">剪切</string>
@@ -59,7 +55,7 @@
 最后修改时间：%s
   </string>
 
-  <string name="advanced">查看什么</string>
+  <string name="advanced">查看</string>
   <string name="settings">软件设置</string>
   <string name="all_files">全部文件</string>
   <string name="storage_info">内部存储信息</string>

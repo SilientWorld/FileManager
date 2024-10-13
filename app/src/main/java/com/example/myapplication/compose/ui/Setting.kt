@@ -40,7 +40,13 @@ class Setting(
       modifier = rowModifier
     ) {
       Column(
-        modifier = Modifier.fillMaxWidth(0.8f)
+        modifier = Modifier.fillMaxWidth(
+          if (checkState != null) {
+            0.8f
+          } else {
+            1f
+          }
+        )
       ) {
         Text(
           text = name,
@@ -54,8 +60,9 @@ class Setting(
           style = descriptionTextStyle
         )
       }
-      Spacer(modifier = Modifier.weight(1f))
       if (checkState != null) {
+        Spacer(modifier = Modifier.weight(1f))
+
         Switch(
           checked = checkState!!,
           onCheckedChange = {
