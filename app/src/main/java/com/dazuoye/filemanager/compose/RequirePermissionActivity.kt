@@ -112,18 +112,6 @@ fun checkPermissions(context: Context): Boolean {
     if (!Environment.isExternalStorageManager()) {
       return false
     }
-    if (VERSION.SDK_INT >= VERSION_CODES.TIRAMISU) {
-      val perm33 = arrayOf(
-        permission.READ_MEDIA_AUDIO,
-        permission.READ_MEDIA_VIDEO,
-        permission.READ_MEDIA_IMAGES
-      )
-      perm33.forEach {
-        if (context.checkSelfPermission(it) != PackageManager.PERMISSION_GRANTED) {
-          return false
-        }
-      }
-    }
   } else {
     val permissions = arrayOf(permission.READ_EXTERNAL_STORAGE, permission.WRITE_EXTERNAL_STORAGE)
     permissions.forEach {
