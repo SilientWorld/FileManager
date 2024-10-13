@@ -158,7 +158,8 @@ class SearchFileColumn(
           )
         }
       } else {
-        DrawColumns(fileList,
+        DrawColumns(
+          fileList,
           searchText = searchText.value,
           onSearch = { name, searchWhat ->
             searchText.value = searchWhat
@@ -201,7 +202,6 @@ class SearchFileColumn(
   @Composable
   private fun DrawColumns(
     fileList: List<WrappedFile>,
-    update: (() -> Unit)? = null,
     searchText: String = "",
     onSearch: ((String, String) -> Unit)? = null,
     onItemClick: ((String) -> Unit)? = null
