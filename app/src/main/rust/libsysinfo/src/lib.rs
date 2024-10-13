@@ -14,7 +14,7 @@ fn get_sys() -> String {
     let kernel = System::kernel_version();
     // In mb (original result is in b)
     let all_memory = sys.total_memory()/1024/1024;
-    let free_memory = sys.free_memory()/1024/1024;
+    let available_memory = sys.available_memory()/1024/1024;
 
     let kernel_string = match kernel {
         Some(k) => format!("kernel: {}\n", k),
@@ -22,8 +22,8 @@ fn get_sys() -> String {
     };
 
     format!(
-        "{}{}MB free of {}MB memory",
-        kernel_string, free_memory, all_memory
+        "{}memory:{}MB available, {}MB in total",
+        kernel_string, available_memory, all_memory
     )
 }
 
