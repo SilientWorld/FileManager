@@ -3,10 +3,13 @@ package com.dazuoye.filemanager.fileSystem
 import android.content.Context
 import android.icu.text.DecimalFormat
 import android.text.format.DateFormat
+import android.util.Log
 import com.dazuoye.filemanager.fileSystem.byTypeFileLister.DocumentLister
 import com.dazuoye.filemanager.fileSystem.byTypeFileLister.ImageLister
 import com.dazuoye.filemanager.fileSystem.byTypeFileLister.MusicLister
 import com.dazuoye.filemanager.fileSystem.byTypeFileLister.VideoLister
+import com.dazuoye.filemanager.utils.FSHelper.getFolderSizeBytesNativeMethod
+import com.dazuoye.filemanager.utils.FSHelper.getFolderSizeNativeMethod
 import java.io.File
 import java.net.URLConnection
 import java.nio.file.Files
@@ -14,6 +17,7 @@ import java.nio.file.attribute.BasicFileAttributes
 import java.sql.Date
 import java.sql.Timestamp
 import java.time.Instant
+import kotlin.math.log
 
 class WrappedFile(private val f: File, skipCalculateDirectorySize: Boolean = false) {
   companion object {
@@ -111,7 +115,11 @@ class WrappedFile(private val f: File, skipCalculateDirectorySize: Boolean = fal
         isSizeCalculated = false
         0
       } else {
-        getFolderSize(f)
+        try {
+          getFolderSizeBytesNativeMethod(f.path)
+        } catch (_: Exception) {
+          getFolderSize(f)
+        }
       }
     }
 
@@ -129,13 +137,23 @@ class WrappedFile(private val f: File, skipCalculateDirectorySize: Boolean = fal
   }
 
   fun getSizeString(): String {
-    if (size == 0L && type == Type.DIRECTORY && !isSizeCalculated) {
-      // Calculate Size
-      size = getFolderSize(f)
-      isSizeCalculated = true
-    } else {
-      return "0B"
+    if (type == Type.DIRECTORY) { // 下面只对文件夹有效
+      if (size == 0L && !isSizeCalculated) {
+        // Calculate Size
+        try {
+          val sizeStr = getFolderSizeNativeMethod(f.path)
+          isSizeCalculated = true
+
+          return sizeStr
+        } catch (e: Exception) {
+          Log.e("getFolderSizeNativeMethod", "getSizeString: ${e.toString()}")
+        }
+        // 备用方法
+        isSizeCalculated = true
+        size = getFolderSize(f)
+      }
     }
+    // 最后 format (fallback方法 + 普通文件)
     return getSizeString(size.toULong())
   }
 
