@@ -31,10 +31,10 @@ class DocumentAdapter(context: Context, list: ArrayList<DocumentModel>) :
     )
     val model = getItem(position) ?: throw RuntimeException()
     val card = listView.findViewById<TextView>(R.id.iconButton)
-    card.text = if (hideExtension == false) {
-      model.name
-    } else {
+    card.text = if (hideExtension == true) {
       model.nameWithoutExt
+    } else {
+      model.name
     }
     return listView
   }

@@ -39,10 +39,11 @@ class ImageAdapter(context: Context, list: ArrayList<ImageModel>) :
     )
     val model = getItem(position) ?: throw RuntimeException()
     listView.findViewById<ImageView>(R.id.pictureCardImage).setImageBitmap(model.thumbnail)
-    listView.findViewById<TextView>(R.id.pictureCardText).text = if (hideExtension == false) {
-      model.name
-    } else {
+    val card = listView.findViewById<TextView>(R.id.pictureCardText)
+    card.text = if (hideExtension == true) {
       model.nameWithoutExt
+    } else {
+      model.name
     }
     listView.setLayoutParams(LayoutParams(GridView.AUTO_FIT, 530))
 
