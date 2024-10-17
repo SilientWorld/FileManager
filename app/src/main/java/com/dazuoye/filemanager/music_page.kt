@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +19,7 @@ import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsCompat.Type
+import androidx.core.view.isVisible
 import com.dazuoye.filemanager.fileSystem.adapters.MusicAdapter
 import com.dazuoye.filemanager.fileSystem.adapters.MusicModel
 import com.dazuoye.filemanager.compose.SearchActivity
@@ -122,6 +124,11 @@ class music_page : AppCompatActivity() {
         val adapter = MusicAdapter(this@music_page, models)
         musicGrid.setAdapter(adapter)
         findViewById<TextView>(R.id.LoadingBlankText).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+          View.VISIBLE
+        }else{
+          View.GONE
+        }
       }
     }
   }
@@ -253,6 +260,12 @@ class music_page : AppCompatActivity() {
       runOnUiThread {
         val grid = findViewById<GridView>(R.id.MusicGrid)
         grid.setAdapter(adapter)
+
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+           View.VISIBLE
+        }else{
+          View.GONE
+        }
       }
       runSomethingMore?.invoke()
     }

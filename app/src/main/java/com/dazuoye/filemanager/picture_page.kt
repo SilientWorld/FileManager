@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -116,14 +117,19 @@ class picture_page : AppCompatActivity() {
       val defaultText = loadingTextView.text
       launch { loadingText(loadingTextView, defaultText) }
       imageList = instance.dateOrderedList()
-      val imageModels = ArrayList<ImageModel>()
+      val models = ArrayList<ImageModel>()
       for (path in imageList) {
-        imageModels.add(ImageModel(File(path)))
+        models.add(ImageModel(File(path)))
       }
       runOnUiThread {
-        val adapter = ImageAdapter(this@picture_page, imageModels)
+        val adapter = ImageAdapter(this@picture_page, models)
         pictureGrid.setAdapter(adapter)
         findViewById<TextView>(R.id.LoadingBlankText).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+          View.VISIBLE
+        }else{
+          View.GONE
+        }
       }
     }
   }
@@ -247,14 +253,19 @@ class picture_page : AppCompatActivity() {
         1 -> instance.sizeOrderedList()
         else -> listOf()
       }
-      val imageModels = ArrayList<ImageModel>()
+      val models = ArrayList<ImageModel>()
       for (path in imageList) {
-        imageModels.add(ImageModel(File(path)))
+        models.add(ImageModel(File(path)))
       }
-      val adapter = ImageAdapter(this, imageModels)
+      val adapter = ImageAdapter(this, models)
       runOnUiThread {
         val grid = findViewById<GridView>(R.id.PicturePageGrid)
         grid.setAdapter(adapter)
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+          View.VISIBLE
+        }else{
+          View.GONE
+        }
       }
       runSomethingMore?.invoke()
     }

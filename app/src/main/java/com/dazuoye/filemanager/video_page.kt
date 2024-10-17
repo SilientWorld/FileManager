@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -115,14 +116,19 @@ class video_page : AppCompatActivity() {
       val defaultText = loadingTextView.text
       launch { loadingText(loadingTextView, defaultText) }
       videoList = instance.dateOrderedList()
-      val videoModels = ArrayList<VideoModel>()
+      val models = ArrayList<VideoModel>()
       for (path in videoList) {
-        videoModels.add(VideoModel(File(path)))
+        models.add(VideoModel(File(path)))
       }
       runOnUiThread {
-        val adapter = VideoAdapter(this@video_page, videoModels)
+        val adapter = VideoAdapter(this@video_page, models)
         videoGrid.setAdapter(adapter)
         findViewById<TextView>(R.id.LoadingBlankText).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+          View.VISIBLE
+        }else{
+          View.GONE
+        }
       }
     }
   }
@@ -246,14 +252,19 @@ class video_page : AppCompatActivity() {
         1 -> instance.sizeOrderedList()
         else -> listOf()
       }
-      val videoModels = ArrayList<VideoModel>()
+      val models = ArrayList<VideoModel>()
       for (path in videoList) {
-        videoModels.add(VideoModel(File(path)))
+        models.add(VideoModel(File(path)))
       }
-      val adapter = VideoAdapter(this, videoModels)
+      val adapter = VideoAdapter(this, models)
       runOnUiThread {
         val grid = findViewById<GridView>(R.id.VideoGrid)
         grid.setAdapter(adapter)
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+          View.VISIBLE
+        }else{
+          View.GONE
+        }
       }
       runSomethingMore?.invoke()
     }

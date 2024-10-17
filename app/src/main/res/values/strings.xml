@@ -88,5 +88,6 @@
   <string name="setting_hide_hidden_file">隐藏点文件</string>
   <string name="setting_hide_hidden_file_description">隐藏所有以 . 开头的文件和文件夹\n. 开头的文件（或文件夹）通常表示隐藏文件（或文件夹）\n此选项只对查看全部文件功能有效</string>
 
+  <string name="no_items">无内容</string>
   <string name="about">关于</string>
 </resources>

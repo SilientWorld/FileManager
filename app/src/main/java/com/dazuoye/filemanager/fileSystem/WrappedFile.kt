@@ -129,18 +129,12 @@ class WrappedFile(private val f: File, skipCalculateDirectorySize: Boolean = fal
   }
 
   fun getSizeString(): String {
-    if (size == 0L) {
-      if (type == Type.DIRECTORY) {
-        if (!isSizeCalculated) {
-          // Calculate Size
-          size = getFolderSize(f)
-          isSizeCalculated = true
-        } else {
-          return "0B"
-        }
-      } else {
-        return "未知"
-      }
+    if (size == 0L && type == Type.DIRECTORY && !isSizeCalculated) {
+      // Calculate Size
+      size = getFolderSize(f)
+      isSizeCalculated = true
+    } else {
+      return "0B"
     }
     return getSizeString(size.toULong())
   }

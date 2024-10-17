@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.GridView
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -143,6 +144,11 @@ class document_page : AppCompatActivity() {
         val adapter = DocumentAdapter(this@document_page, models)
         documentGrid.setAdapter(adapter)
         findViewById<TextView>(R.id.LoadingBlankText).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+          View.VISIBLE
+        }else{
+          View.GONE
+        }
       }
     }
   }
@@ -274,6 +280,12 @@ class document_page : AppCompatActivity() {
       runOnUiThread {
         val grid = findViewById<GridView>(R.id.DocumentGrid)
         grid.setAdapter(adapter)
+
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+          View.VISIBLE
+        }else{
+          View.GONE
+        }
       }
       runSomethingMore?.invoke()
     }
