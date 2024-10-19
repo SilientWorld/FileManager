@@ -2,6 +2,7 @@ package com.dazuoye.filemanager.fileSystem.adapters
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.media.ThumbnailUtils
 import android.util.Size
 import android.view.LayoutInflater
@@ -25,7 +26,7 @@ class ImageModel(image: File) {
     if (!image.isFile) {
       throw RuntimeException("No such Image")
     }
-    thumbnail = ThumbnailUtils.createImageThumbnail(image, Size(512, 512), null)
+    thumbnail = ThumbnailUtils.createImageThumbnail(image, Size(80, 120), null)
   }
 }
 

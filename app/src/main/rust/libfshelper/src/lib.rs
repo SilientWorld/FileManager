@@ -15,7 +15,7 @@ pub extern "system" fn Java_com_dazuoye_filemanager_utils_FSHelper_getFolderSize
         .expect("failed to parse input")
         .into();
 
-    if !fs::exists(&dir).expect(format!("Cannot stat {}", dir).as_str()) {
+    if !fs::exists(&dir).expect(format!("Cannot stat {dir}").as_str()) {
         return env
             .new_string(format!("{} not exists!", dir))
             .expect("Couldn't create java string!")
@@ -30,7 +30,7 @@ pub extern "system" fn Java_com_dazuoye_filemanager_utils_FSHelper_getFolderSize
                 match item.metadata() {
                     Ok(metadata) => size += metadata.len(),
                     Err(e) => {
-                        eprintln!("Error getting metadata for item: {:?}", e);
+                        eprintln!("Error getting metadata for item: {e:?}");
                         continue;
                     }
                 }

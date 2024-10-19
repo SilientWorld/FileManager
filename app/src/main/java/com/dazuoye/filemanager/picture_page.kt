@@ -291,4 +291,9 @@ class picture_page : AppCompatActivity() {
       loadingText(loadingTextView, defaultText, next)
     }
   }
+
+  override fun onDestroy() {
+    super.onDestroy()
+    System.gc()
+  }
 }

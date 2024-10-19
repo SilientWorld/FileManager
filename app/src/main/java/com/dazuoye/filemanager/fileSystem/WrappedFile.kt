@@ -27,7 +27,7 @@ class WrappedFile(private val f: File, skipCalculateDirectorySize: Boolean = fal
       var unit = SizeUnit.B
 
       while (sizeFirst > 1024u && unit != SizeUnit.GB) {
-        sizeLast = size.mod(1024u).toInt()
+        sizeLast = sizeFirst.mod(1024u).toInt()
         sizeFirst /= 1024u
         unit = when (unit) {
           SizeUnit.B -> SizeUnit.KB
