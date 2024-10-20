@@ -162,7 +162,7 @@ class document_page : AppCompatActivity() {
         }
       },
       onPaste = {
-        val uri = ClipHelper.getInstance(this).paste()
+        val uri = ClipHelper.getInstance(this).paste(this)
         if (uri != null) {
           val dir = File(pasteDir)
           if (!dir.exists()) {

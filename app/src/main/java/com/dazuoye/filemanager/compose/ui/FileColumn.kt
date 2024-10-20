@@ -264,7 +264,7 @@ class FileColumn(val context: Context) {
                 f.mkdir()
               }
               ClipHelper.getInstance(context).copy(source, context)
-              val sourceUri = ClipHelper.getInstance(context).paste() ?: return false
+              val sourceUri = ClipHelper.getInstance(context).paste(context) ?: return false
               val inputStream = try {
                 context.contentResolver.openInputStream(sourceUri)
               } catch (e: FileNotFoundException) {
@@ -278,7 +278,7 @@ class FileColumn(val context: Context) {
                 inputStream.close()
               }
               ClipHelper.getInstance(context).copy(target, context)
-              val targetUri = ClipHelper.getInstance(context).paste() ?: return false
+              val targetUri = ClipHelper.getInstance(context).paste(context) ?: return false
               val inputStream2 = context.contentResolver.openInputStream(targetUri)
               if (inputStream2 != null) {
                 val actualFile = File(f, target.name)
@@ -292,7 +292,7 @@ class FileColumn(val context: Context) {
               ).show()
             } else if (source.isDirectory) {
               ClipHelper.getInstance(context).copy(target, context)
-              val sourceUri = ClipHelper.getInstance(context).paste() ?: return false.also {
+              val sourceUri = ClipHelper.getInstance(context).paste(context) ?: return false.also {
                 dropTarget = null
               }
               val inputStream = try {
@@ -316,7 +316,7 @@ class FileColumn(val context: Context) {
           } else if (target.isDirectory) {
             if (source.isFile) {
               ClipHelper.getInstance(context).copy(source, context)
-              val sourceUri = ClipHelper.getInstance(context).paste() ?: return false.also {
+              val sourceUri = ClipHelper.getInstance(context).paste(context) ?: return false.also {
                 dropTarget = null
               }
               val inputStream = try {
@@ -621,7 +621,7 @@ class FileColumn(val context: Context) {
           onClick = {
             AlertHelper.showOnlyPasteInfoNewAlert(context,
               onPaste = {
-                val uri = ClipHelper.getInstance(context).paste()
+                val uri = ClipHelper.getInstance(context).paste(context)
                 if (uri != null) {
                   val name = uri.path?.split('/')?.last() ?: "somePastedItem"
                   val ext = name.split('.').last()

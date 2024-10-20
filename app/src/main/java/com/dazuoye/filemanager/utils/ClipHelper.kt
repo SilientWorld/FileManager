@@ -7,9 +7,16 @@ import android.content.Context
 import android.net.Uri
 import androidx.core.content.FileProvider
 import com.dazuoye.filemanager.BuildConfig
+import com.dazuoye.filemanager.fileSystem.DeleteHelper.Companion.delete
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.internal.synchronized
+import org.apache.commons.io.IOUtils
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.FileWriter
+import java.io.InputStream
+import java.nio.charset.CharsetDecoder
 
 class ClipHelper private constructor(context: Context) {
   companion object {
@@ -36,12 +43,33 @@ class ClipHelper private constructor(context: Context) {
     )
     val clip = ClipData.newUri(contentResolver, label, uri)
     clipboard.setPrimaryClip(clip)
+
+    // 备用的复制方法
+    val clipFile = File(context.cacheDir,"clipboard")
+    if (clipFile.exists()){
+      delete(clipFile.path)
+    }
+
+    clipFile.createNewFile()
+    val fw = FileWriter(clipFile)
+    fw.write(uri.toString())
+    fw.close()
   }
 
-  fun paste(): Uri? {
+  fun paste(context: Context): Uri? {
     val clip = clipboard.primaryClip
     clip?.run {
       val item: ClipData.Item = getItemAt(0)
+      if (item.uri == null){
+        // 备用粘贴方式
+        val clipFile = File(context.cacheDir,"clipboard")
+        if (clipFile.isFile()){
+          val input = FileInputStream(clipFile)
+          val content = IOUtils.toString(input,"UTF-8")
+          return Uri.parse(content)
+        }
+      }
+
       return item.uri
     }
     return null
