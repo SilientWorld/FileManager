@@ -25,6 +25,7 @@ import com.dazuoye.filemanager.fileSystem.adapters.MusicModel
 import com.dazuoye.filemanager.compose.SearchActivity
 import com.dazuoye.filemanager.fileSystem.CutHelper
 import com.dazuoye.filemanager.fileSystem.byTypeFileLister.DocumentLister
+import com.dazuoye.filemanager.fileSystem.byTypeFileLister.MusicLister
 import com.dazuoye.filemanager.fileSystem.byTypeFileLister.MusicLister.Companion.instance
 import com.dazuoye.filemanager.utils.AlertHelper
 import com.dazuoye.filemanager.utils.ClipHelper
@@ -150,7 +151,7 @@ class music_page : AppCompatActivity() {
           }
           val name = uri.path?.split('/')?.last() ?: "somePastedItem"
           val ext = name.split('.').last()
-          if (!"$ext.".matches(DocumentLister.regex)) {
+          if (!"$ext.".matches(MusicLister.regex)) {
             Toast.makeText(this, getString(R.string.error_nothing_to_paste), Toast.LENGTH_SHORT)
               .show()
             return@showItemAlert
