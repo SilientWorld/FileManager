@@ -152,7 +152,7 @@ class picture_page : AppCompatActivity() {
           }
           val name = uri.path?.split('/')?.last() ?: "somePastedItem"
           val ext = name.split('.').last()
-          if (!"$ext.".matches(ImageLister.regex)) {
+          if (!".$ext".matches(ImageLister.regex)) {
             Toast.makeText(this, getString(R.string.error_nothing_to_paste), Toast.LENGTH_SHORT)
               .show()
             return@showItemAlert
