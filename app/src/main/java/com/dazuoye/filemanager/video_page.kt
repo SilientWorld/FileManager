@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 import org.apache.commons.io.IOUtils
 import java.io.File
 
-class video_page : AppCompatActivity() {
+class video_page : BaseActivity() {
   private var videoList = listOf<String>()
   private val pasteDir = "${Environment.getExternalStorageDirectory().path}/Movies/pasted"
   private var videoListOrderType = 0

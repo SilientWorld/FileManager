@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 import org.apache.commons.io.IOUtils
 import java.io.File
 
-class document_page : AppCompatActivity() {
+class document_page : BaseActivity() {
   private var documentList = listOf<String>()
   private val pasteDir = "${Environment.getExternalStorageDirectory().path}/Documents/pasted"
   private var listOrderType = 0

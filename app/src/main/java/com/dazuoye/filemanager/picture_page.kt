@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 import org.apache.commons.io.IOUtils
 import java.io.File
 
-class picture_page : AppCompatActivity() {
+class picture_page : BaseActivity() {
   private var imageList = listOf<String>()
   private val pasteDir = "${Environment.getExternalStorageDirectory().path}/Pictures/pasted"
   private var imageListOrderType = 0
@@ -291,10 +291,5 @@ class picture_page : AppCompatActivity() {
     if (loadingTextView.visibility != View.GONE) {
       loadingText(loadingTextView, defaultText, next)
     }
-  }
-
-  override fun onDestroy() {
-    super.onDestroy()
-    System.gc()
   }
 }

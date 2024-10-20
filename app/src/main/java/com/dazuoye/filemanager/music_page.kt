@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 import org.apache.commons.io.IOUtils
 import java.io.File
 
-class music_page : AppCompatActivity() {
+class music_page : BaseActivity() {
   private var musicList = listOf<String>()
   private val pasteDir = "${Environment.getExternalStorageDirectory().path}/Music/pasted"
   private var listOrderType = 0
