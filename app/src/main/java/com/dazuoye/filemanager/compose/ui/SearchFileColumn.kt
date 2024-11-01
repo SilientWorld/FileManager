@@ -3,6 +3,8 @@ package com.dazuoye.filemanager.compose.ui
 import android.content.Context
 import android.content.Intent
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AlertDialog.Builder
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -331,13 +333,7 @@ class SearchFileColumn(
 
       IconButton(
         onClick = {
-          if (file.type == Type.FILE) { // 普通文件
-            AlertHelper.showOnlyInfoNewAlert(context,
-              onInfo = {
-                AlertHelper.showFileInfoAlert(context, file.path)
-              }
-            )
-          }
+          showFileInfoAlert(context,file.path)
         },
         modifier = Modifier.padding(horizontal = 10.dp)
       ) {
@@ -347,5 +343,28 @@ class SearchFileColumn(
       }
     }
 
+  }
+  fun showFileInfoAlert(context: Context, file: String) {
+    val f = File(file)
+    if (!f.exists()) {
+      return
+    }
+    val wrappedFile = WrappedFile(f)
+
+    val builder = AlertDialog.Builder(context)
+    builder.setTitle(context.getString(R.string.file_info))
+      .setMessage(
+        context.getString(
+          R.string.file_info_text,
+          wrappedFile.name,
+          wrappedFile.path,
+          wrappedFile.getSizeString(),
+          wrappedFile.getModifiedTimeString(context)
+        )
+      )
+      .setNegativeButton(context.getString(R.string.okay)) { dialog, _ ->
+        dialog.dismiss()
+      }
+      .show()
   }
 }

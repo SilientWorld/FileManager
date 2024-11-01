@@ -125,26 +125,6 @@ class AlertHelper {
         .show()
     }
 
-    fun showOnlyInfoNewAlert(
-      context: Context,
-      onInfo: () -> Unit,
-    ) {
-      val builder = Builder(context)
-      builder.setTitle(context.getString(R.string.select_action))
-        .setItems(
-          arrayOf<CharSequence>(
-            context.getString(R.string.action_info)
-          )
-        ) { _: DialogInterface?, which: Int ->
-          when (which) {
-            1 -> onInfo()
-          }
-        }
-        .setNegativeButton(context.getString(R.string.action_cancel))
-        { dialog: DialogInterface, which: Int -> dialog.dismiss() }
-        .show()
-    }
-
     fun showDeleteAlert(context: Context, file: String, onConfirm: (() -> Unit)?) {
       val builder = Builder(context)
       builder.setTitle(context.getString(R.string.confirm_to_delete))
