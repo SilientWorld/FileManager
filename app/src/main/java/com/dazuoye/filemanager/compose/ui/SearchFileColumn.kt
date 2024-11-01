@@ -45,10 +45,8 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import com.dazuoye.filemanager.R
 import com.dazuoye.filemanager.fileSystem.WrappedFile
-import com.dazuoye.filemanager.fileSystem.WrappedFile.Type
 import com.dazuoye.filemanager.fileSystem.searchFile
 import com.dazuoye.filemanager.main_page
-import com.dazuoye.filemanager.utils.AlertHelper
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -68,7 +66,7 @@ class SearchFileColumn(
     var isOkay by remember { mutableStateOf(false) }
     var sortByTime by remember { mutableStateOf(true) }
 
-    LaunchedEffect(isOkay, list,sortByTime) {
+    LaunchedEffect(isOkay, list, sortByTime) {
       isOkay = false
       fileList.clear()
       val wfList = list.map { WrappedFile(File(it)) }
@@ -109,7 +107,11 @@ class SearchFileColumn(
         }
 
         Text(
-          text = context.getString(R.string.search_result, searchTypeName),
+          text = if (list.isEmpty()) {
+            context.getString(R.string.search_here, searchTypeName)
+          } else {
+            context.getString(R.string.search_result, searchTypeName)
+          },
           fontSize = 28.sp,
           modifier = Modifier
             .padding(start = 10.dp)
@@ -333,7 +335,7 @@ class SearchFileColumn(
 
       IconButton(
         onClick = {
-          showFileInfoAlert(context,file.path)
+          showFileInfoAlert(context, file.path)
         },
         modifier = Modifier.padding(horizontal = 10.dp)
       ) {
@@ -342,8 +344,8 @@ class SearchFileColumn(
         )
       }
     }
-
   }
+
   fun showFileInfoAlert(context: Context, file: String) {
     val f = File(file)
     if (!f.exists()) {

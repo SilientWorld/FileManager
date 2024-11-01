@@ -74,6 +74,7 @@
   <string name="error_already_exist">已存在此文件（夹）</string>
   <string name="title_activity_view_file">ViewFileActivity</string>
   <string name="title_activity_search">SearchActivity</string>
+  <string name="search_here">搜索%s</string>
   <string name="search_result">搜索%s结果</string>
   <string name="error_need_search_input">请输入要搜索的内容</string>
   <string name="error_search_input_illegal">输入的搜索内容不合法</string>
@@ -84,7 +85,7 @@
   <string name="sort_by_time">已选择按时间排序</string>
   <string name="title_activity_setting">SettingActivity</string>
   <string name="setting_hide_extension">隐藏扩展名</string>
-  <string name="setting_hide_extension_description">如果打开，则会显示文件名 abc.efg，否则显示文件全名 abc.efg.txt</string>
+  <string name="setting_hide_extension_description">如果打开，则会显示文件名 abc.efg，否则显示文件全名 abc.efg.txt\n此选项不会影响搜索页面显示扩展名</string>
   <string name="setting_hide_hidden_file">隐藏点文件</string>
   <string name="setting_hide_hidden_file_description">隐藏所有以 . 开头的文件和文件夹\n. 开头的文件（或文件夹）通常表示隐藏文件（或文件夹）\n此选项只对查看全部文件功能有效</string>
 
