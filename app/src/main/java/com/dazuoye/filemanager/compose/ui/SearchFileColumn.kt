@@ -4,33 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AlertDialog.Builder
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -52,20 +31,32 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
+/**
+ * 用于在搜索结果中显示文件列表的类
+ * @param context 上下文对象
+ * @param searchTypeName 搜索类型名称，用于显示在UI中
+ * @param searchRegex 搜索的正则表达式
+ */
 class SearchFileColumn(
   val context: Context,
   private val searchTypeName: String,
   private val searchRegex: Regex?
 ) {
+  // 保存搜索到的文件列表
   private val fileList = mutableStateListOf<WrappedFile>()
+  // 搜索输入的文本状态
   private val searchText = mutableStateOf("")
 
+  /**
+   * Composable函数，用于绘制搜索文件的主界面
+   */
   @Composable
   fun Draw() {
     var list by remember { mutableStateOf<List<String>>(emptyList()) }
     var isOkay by remember { mutableStateOf(false) }
     var sortByTime by remember { mutableStateOf(true) }
 
+    // 当搜索结果或排序方式改变时，重新加载并排序文件列表
     LaunchedEffect(isOkay, list, sortByTime) {
       isOkay = false
       fileList.clear()
@@ -78,6 +69,7 @@ class SearchFileColumn(
       isOkay = true
     }
 
+    // 主界面布局，包含返回按钮、标题和排序按钮
     Column(
       modifier = Modifier
         .fillMaxSize()
@@ -91,6 +83,7 @@ class SearchFileColumn(
           .padding(horizontal = 10.dp),
         verticalAlignment = Alignment.CenterVertically
       ) {
+        // 返回按钮，点击时返回主页面
         IconButton(
           onClick = {
             val intent = Intent(
@@ -106,6 +99,7 @@ class SearchFileColumn(
           )
         }
 
+        // 显示搜索标题或搜索结果
         Text(
           text = if (list.isEmpty()) {
             context.getString(R.string.search_here, searchTypeName)
@@ -122,6 +116,7 @@ class SearchFileColumn(
 
         Spacer(modifier = Modifier.weight(1f))
 
+        // 排序按钮，切换按时间或大小排序
         IconButton(
           onClick = {
             sortByTime = !sortByTime
@@ -148,20 +143,23 @@ class SearchFileColumn(
             ), "sortMethod"
           )
         }
-
       }
+
+      // 加载或显示搜索结果
       if (!isOkay) {
         Column(
           modifier = Modifier.fillMaxSize(),
           horizontalAlignment = Alignment.CenterHorizontally,
           verticalArrangement = Arrangement.Center
         ) {
+          // 显示“加载中”的文本
           Text(
             text = context.getString(R.string.loading),
             fontSize = 34.sp
           )
         }
       } else {
+        // 显示搜索结果的文件列表
         DrawColumns(
           fileList,
           searchText = searchText.value,
@@ -186,6 +184,7 @@ class SearchFileColumn(
             }
           }
         ) {
+          // 文件点击事件，打开对应的文件
           val file = File(it)
           if (file.isFile) {
             val uri = FileProvider.getUriForFile(
@@ -203,6 +202,13 @@ class SearchFileColumn(
     }
   }
 
+  /**
+   * Composable函数，用于绘制文件列表
+   * @param fileList 文件列表
+   * @param searchText 搜索输入文本
+   * @param onSearch 搜索按钮点击事件
+   * @param onItemClick 文件点击事件
+   */
   @Composable
   private fun DrawColumns(
     fileList: List<WrappedFile>,
@@ -213,7 +219,7 @@ class SearchFileColumn(
     LazyColumn(
       modifier = Modifier.padding(vertical = 5.dp)
     ) {
-      // 最顶上那个
+      // 搜索输入框
       item {
         Row(
           modifier = Modifier
@@ -223,6 +229,7 @@ class SearchFileColumn(
         ) {
           var searchInput by remember { mutableStateOf(searchText) }
 
+          // 搜索输入框
           TextField(
             value = searchInput,
             maxLines = 1,
@@ -238,6 +245,7 @@ class SearchFileColumn(
             ),
             textStyle = TextStyle(fontSize = 18.sp),
             trailingIcon = {
+              // 点击图标进行搜索
               Image(
                 ImageVector.vectorResource(R.drawable.ic_search),
                 context.getString(R.string.search),
@@ -245,6 +253,7 @@ class SearchFileColumn(
                   .clickable {
                     if (searchInput.isNotEmpty()) {
                       if (searchInput == "." || searchInput == "..") {
+                        // 输入非法时提示错误
                         Toast
                           .makeText(
                             context,
@@ -269,7 +278,7 @@ class SearchFileColumn(
         }
       }
 
-      // 下面的内容
+      // 显示每个文件的视图
       items(fileList) { file ->
         FileSingleView(
           file,
@@ -279,12 +288,16 @@ class SearchFileColumn(
     }
   }
 
+  /**
+   * Composable函数，用于绘制单个文件项
+   * @param file 文件对象
+   * @param onItemClick 文件点击事件
+   */
   @Composable
   private fun FileSingleView(
     file: WrappedFile,
     onItemClick: ((String) -> Unit)? = null
   ) {
-
     Row(
       modifier = Modifier
         .fillMaxWidth()
@@ -299,6 +312,7 @@ class SearchFileColumn(
         },
       verticalAlignment = Alignment.CenterVertically,
     ) {
+      // 显示文件图标
       Image(
         ImageVector.vectorResource(
           when (file.mime.split('/').first()) {
@@ -317,12 +331,14 @@ class SearchFileColumn(
           .padding(horizontal = 15.dp)
           .fillMaxWidth(0.8f)
       ) {
+        // 文件名称
         Text(
           text = file.name,
           fontSize = 24.sp,
           maxLines = 1,
           overflow = TextOverflow.Ellipsis
         )
+        // 文件最后修改时间
         Text(
           text = file.getModifiedTimeString(context),
           fontSize = 15.sp,
@@ -333,6 +349,7 @@ class SearchFileColumn(
 
       Spacer(Modifier.weight(1f))
 
+      // 显示文件信息的按钮
       IconButton(
         onClick = {
           showFileInfoAlert(context, file.path)
@@ -346,6 +363,11 @@ class SearchFileColumn(
     }
   }
 
+  /**
+   * 显示文件详细信息的弹窗
+   * @param context 上下文对象
+   * @param file 文件路径
+   */
   fun showFileInfoAlert(context: Context, file: String) {
     val f = File(file)
     if (!f.exists()) {
