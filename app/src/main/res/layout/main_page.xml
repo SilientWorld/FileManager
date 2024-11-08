@@ -62,7 +62,7 @@
             android:textColor="@color/black"
             />
 
-        <!--设置“视频”按钮-->
+        <!--设置“音乐”按钮-->
         <Button
             android:id="@+id/MainPageMusicButton"
             android:layout_width="101dp"

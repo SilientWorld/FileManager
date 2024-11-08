@@ -126,7 +126,7 @@ class picture_page : BaseActivity() {
         val adapter = ImageAdapter(this@picture_page, models)
         pictureGrid.setAdapter(adapter)
         findViewById<TextView>(R.id.LoadingBlankText).visibility = View.GONE
-        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty()){ // 没有东西则显示空
           View.VISIBLE
         }else{
           View.GONE
@@ -262,7 +262,7 @@ class picture_page : BaseActivity() {
       runOnUiThread {
         val grid = findViewById<GridView>(R.id.PicturePageGrid)
         grid.setAdapter(adapter)
-        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty){ // 没有东西则显示空
+        findViewById<LinearLayout>(R.id.NothingFoundHint).visibility = if (models.isEmpty()){ // 没有东西则显示空
           View.VISIBLE
         }else{
           View.GONE
