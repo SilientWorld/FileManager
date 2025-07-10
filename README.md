@@ -45,10 +45,27 @@
 3. **选择模拟器**：选择手机模拟器进行测试。
 4. **运行应用**：点击运行按钮，启动应用并开始演示文件管理功能。
 
-## 参与开发
+## 结果展示
 
-如果您对该项目有兴趣或希望为该项目贡献代码，可以按照以下步骤进行开发：
+![image](https://github.com/user-attachments/assets/36d16231-ee6f-4fc6-a37d-81229819b26a)
 
-1. Fork 本项目到您的 GitHub 账户。
-2. 克隆项目到本地进行开发。
-3. 提交 Pull Request，说明您的修改或新增功能。
+![image](https://github.com/user-attachments/assets/e0e25af8-9dc9-4128-9ebb-fa3a4401a2b0)
+
+![image](https://github.com/user-attachments/assets/e472f1b9-2cce-4e8d-a0df-93e773ff17ec)
+
+![image](https://github.com/user-attachments/assets/09509bb2-45d9-4984-9264-ae786ef7c0d6)
+
+![image](https://github.com/user-attachments/assets/58e8dc87-4512-4656-a55f-94d3f009b11d)
+
+![image](https://github.com/user-attachments/assets/63efca82-1290-4aea-ac46-83c04139ea3e)
+
+![image](https://github.com/user-attachments/assets/66ba27c1-bf64-453e-9e6e-946cd22cab68)
+
+![image](https://github.com/user-attachments/assets/f2a96d9a-493d-4150-8f56-108e9ab4d859)
+
+
+
+
+
+
+
